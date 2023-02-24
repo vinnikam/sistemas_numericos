@@ -12,7 +12,9 @@ package logica;
 public class Operaciones {
     
     public String convertirDecimalBinario(String valor){
-        return "";
+        String nuevoNumero = "1000";
+        
+        return nuevoNumero;
     }
     public String convertirDecimalHexadecimal(String valor){
         return "";

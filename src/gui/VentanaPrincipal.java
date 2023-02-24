@@ -68,7 +68,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         grupoOut.add(opOctalOUT);
         opOctalOUT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        opOctalOUT.setText("Decimal");
+        opOctalOUT.setText("Octal");
         jPanel1.add(opOctalOUT);
         opOctalOUT.setBounds(20, 110, 110, 23);
 
@@ -107,18 +107,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Destino");
+        jLabel3.setText("Dato Salida");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(340, 90, 180, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Origen");
+        jLabel4.setText("Dato Entrada");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(60, 90, 180, 30);
+        jLabel4.setBounds(90, 90, 180, 30);
 
-        cjRespuesta.setBackground(new java.awt.Color(204, 204, 255));
+        cjRespuesta.setBackground(new java.awt.Color(0, 0, 0));
         cjRespuesta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cjRespuesta.setForeground(new java.awt.Color(255, 255, 255));
+        cjRespuesta.setText("----");
         cjRespuesta.setEnabled(false);
         cjRespuesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,7 +132,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Digite el numero en base: ");
+        jLabel5.setText("Digite el número en base: ");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(20, 340, 230, 30);
 
@@ -159,7 +161,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         grupoIn.add(opOctalN);
         opOctalN.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        opOctalN.setText("Decimal");
+        opOctalN.setText("Octal");
         jPanel3.add(opOctalN);
         opOctalN.setBounds(20, 110, 110, 23);
 
@@ -266,7 +268,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             return ;
         }
         if (this.opDecimalIN.isSelected() && this.opDecimalOUT.isSelected()){
-            
+            this.cjRespuesta.setText(this.cjNumeroEntrada.getText());
+        }
+        if (this.opDecimalIN.isSelected() && this.opBinariolOUT.isSelected()){
+            String nuevoNumero = operaciones.convertirDecimalBinario(this.cjNumeroEntrada.getText());
+            this.cjRespuesta.setText(nuevoNumero);
+    
         }
         
     }
