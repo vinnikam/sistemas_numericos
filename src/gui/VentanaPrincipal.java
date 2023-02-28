@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import logica.Operaciones;
 
@@ -21,6 +23,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.opDecimalIN.setSelected(true);
         this.opBinariolOUT.setSelected(true);
+        
     }
 
     /**
@@ -142,6 +145,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cjNumeroEntradaActionPerformed(evt);
             }
         });
+        cjNumeroEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cjNumeroEntradaKeyTyped(evt);
+            }
+        });
         getContentPane().add(cjNumeroEntrada);
         cjNumeroEntrada.setBounds(280, 340, 290, 28);
 
@@ -162,18 +170,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         grupoIn.add(opOctalN);
         opOctalN.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         opOctalN.setText("Octal");
+        opOctalN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opOctalNActionPerformed(evt);
+            }
+        });
         jPanel3.add(opOctalN);
         opOctalN.setBounds(20, 110, 110, 23);
 
         grupoIn.add(opDecimalIN);
         opDecimalIN.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         opDecimalIN.setText("Decimal");
+        opDecimalIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opDecimalINActionPerformed(evt);
+            }
+        });
         jPanel3.add(opDecimalIN);
         opDecimalIN.setBounds(20, 20, 110, 25);
 
         grupoIn.add(opBinariolIN);
         opBinariolIN.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         opBinariolIN.setText("Binario");
+        opBinariolIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opBinariolINActionPerformed(evt);
+            }
+        });
         jPanel3.add(opBinariolIN);
         opBinariolIN.setBounds(20, 50, 110, 23);
 
@@ -220,13 +243,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void opHexaINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opHexaINActionPerformed
         // TODO add your handling code here:
+        this.limpiar();
+                
     }//GEN-LAST:event_opHexaINActionPerformed
+
+    private void cjNumeroEntradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cjNumeroEntradaKeyTyped
+        // TODO add your handling code here:
+        validarCaracter(evt);
+    }//GEN-LAST:event_cjNumeroEntradaKeyTyped
+
+    private void opDecimalINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opDecimalINActionPerformed
+            // TODO add your handling code here:
+            limpiar();
+    }//GEN-LAST:event_opDecimalINActionPerformed
+
+    private void opBinariolINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opBinariolINActionPerformed
+        // TODO add your handling code here:
+        this.limpiar();
+    }//GEN-LAST:event_opBinariolINActionPerformed
+
+    private void opOctalNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opOctalNActionPerformed
+        // TODO add your handling code here:
+        this.limpiar();
+    }//GEN-LAST:event_opOctalNActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -263,24 +308,57 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void procesar() {
         Operaciones operaciones = new Operaciones();
-        if (this.cjNumeroEntrada.getText().isEmpty()){
+        if (this.cjNumeroEntrada.getText().isEmpty()) {
             this.generarMensajeWarning("No hay numero de entrada");
-            return ;
+            return;
         }
-        if (this.opDecimalIN.isSelected() && this.opDecimalOUT.isSelected()){
+        if (this.opDecimalIN.isSelected() && this.opDecimalOUT.isSelected()) {
             this.cjRespuesta.setText(this.cjNumeroEntrada.getText());
         }
-        if (this.opDecimalIN.isSelected() && this.opBinariolOUT.isSelected()){
+        if (this.opDecimalIN.isSelected() && this.opBinariolOUT.isSelected()) {
             String nuevoNumero = operaciones.convertirDecimalBinario(this.cjNumeroEntrada.getText());
             this.cjRespuesta.setText(nuevoNumero);
-    
+
         }
-        
+
     }
-    private void generarMensajeOk(String mensaje){
+
+    private void generarMensajeOk(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
-    private void generarMensajeWarning(String mensaje){
+
+    private void generarMensajeWarning(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Información", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void validarCaracter(java.awt.event.KeyEvent evt) {
+        
+        int code = evt.getKeyChar();
+        if (opBinariolIN.isSelected()) {
+            if (code < 48 || code > 49) {
+                evt.consume();
+            }
+        }
+        if (opHexaIN.isSelected()) {
+            if (!((code >= 48 && code <= 57) || (code >= 65 && code <= 71) || (code >= 97 && code <= 102))) {
+                evt.consume();
+            }
+        }
+        if (opDecimalIN.isSelected()) {
+            if ((code < 48 || code > 57)) {
+                evt.consume();
+            }
+        }
+        if (opOctalN.isSelected()) {
+            if ((code < 48 || code > 55)) {
+                evt.consume();
+            }
+        }
+
+        
+    }
+
+    private void limpiar() {
+        this.cjNumeroEntrada.setText("");
     }
 }
